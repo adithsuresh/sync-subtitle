@@ -1,0 +1,133 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SRT Subtitle Resync Tool</title>
+    <link rel="icon" href="logo.png" type="image/png" />
+    <link rel="stylesheet" href="normalize.css" />
+    <link rel="stylesheet" href="app.css" />
+  </head>
+
+  <body>
+    <div id="title" class="row">
+      <img src="logo.png" width="75px" height="75px" />
+      <h1 style="color: #977e65; margin-left: 5px">
+        Online SRT Subtitle Resync Tool
+      </h1>
+    </div>
+    <div
+      class="top column"
+      style="background: #fdf7e4; padding: 10px; border: 1px solid #ddd"
+    >
+      <div class="row">
+        <input
+          type="file"
+          id="fileElem"
+          accept=".srt"
+          style="display: none"
+          onchange="handleFiles(this.files)"
+        />
+        <label
+          for="fileElem"
+          style="
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #aaa;
+            padding: 10px;
+            border-radius: 10px;
+            background: #fff4cf;
+            color: #444;
+            cursor: pointer;
+          "
+          >Select an (.SRT) file to import ...</label
+        >
+        <p id="fileName" style="margin-left: 10px">No file selected.</p>
+      </div>
+
+      <div class="row">
+        <form action="" onsubmit="process(); return false;">
+          <label style="margin-right: 10px">Duration (HH:mm:ss,SSS)</label>
+          <input
+            id="shift_duration_hours"
+            type="number"
+            value="00"
+            min="-99"
+            max="99"
+            title="2 digit hours"
+            onkeypress="return isNumber(event)"
+            onkeyup="validateNumber(event)"
+            style="max-width: 60px; height: 35px"
+          />
+          <input
+            id="shift_duration_minutes"
+            type="number"
+            value="00"
+            min="-99"
+            max="99"
+            title="2 digit minutes"
+            onkeypress="return isNumber(event)"
+            onkeyup="validateNumber(event)"
+            style="max-width: 60px; height: 35px"
+          />
+          <input
+            id="shift_duration_seconds"
+            type="number"
+            value="00"
+            min="-99"
+            max="99"
+            title="2 digit seconds"
+            onkeypress="return isNumber(event)"
+            onkeyup="validateNumber(event)"
+            style="max-width: 60px; height: 35px"
+          />
+          <input
+            id="shift_duration_milliseconds"
+            type="number"
+            value="000"
+            min="-999"
+            max="999"
+            title="3 digit milliseconds"
+            onkeypress="return isNumber(event)"
+            onkeyup="validateNumber(event)"
+            style="max-width: 80px; height: 35px"
+          />
+
+          <input
+            type="submit"
+            value="Resync"
+            style="
+              height: 38px;
+              margin-left: 10px;
+              border-radius: 5px;
+              background: #977e65;
+              border: 0px solid #977e65;
+              color: #fff;
+              cursor: pointer;
+              outline: none;
+            "
+          />
+        </form>
+      </div>
+    </div>
+
+    <div class="bottom row content">
+      <div class="column">
+        <textarea id="raw_content"></textarea>
+      </div>
+
+      <div class="column">
+        <textarea
+          id="processed_content"
+          onkeydown="event.keyCode == 8 || event.keyCode == 46 ? event.preventDefault() : null"
+          onkeypress="return false"
+          style="outline: none"
+        ></textarea>
+      </div>
+    </div>
+    <script type="text/javascript" src="app.js"></script>
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"
+    ></script>
+  </body>
+</html>
