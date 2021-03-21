@@ -44,78 +44,66 @@
         <p id="fileName" style="margin-left: 10px">No file selected.</p>
       </div>
 
-      <div class="row">
+      <div class="row" style="margin-top: 15px">
         <form action="" onsubmit="process(); return false;">
-          <label style="margin-right: 10px">Duration (HH:mm:ss,SSS)</label>
-          <input
-            id="shift_duration_hours"
-            type="number"
-            value="00"
-            min="-99"
-            max="99"
-            title="2 digit hours"
-            onkeypress="return isNumber(event)"
-            onkeyup="validateNumber(event)"
-            style="max-width: 60px; height: 35px"
-          />
-          <input
-            id="shift_duration_minutes"
-            type="number"
-            value="00"
-            min="-99"
-            max="99"
-            title="2 digit minutes"
-            onkeypress="return isNumber(event)"
-            onkeyup="validateNumber(event)"
-            style="max-width: 60px; height: 35px"
-          />
-          <input
-            id="shift_duration_seconds"
-            type="number"
-            value="00"
-            min="-99"
-            max="99"
-            title="2 digit seconds"
-            onkeypress="return isNumber(event)"
-            onkeyup="validateNumber(event)"
-            style="max-width: 60px; height: 35px"
-          />
-          <input
-            id="shift_duration_milliseconds"
-            type="number"
-            value="000"
-            min="-999"
-            max="999"
-            title="3 digit milliseconds"
-            onkeypress="return isNumber(event)"
-            onkeyup="validateNumber(event)"
-            style="max-width: 80px; height: 35px"
-          />
-
-          <input
-            type="submit"
-            value="Resync"
-            style="
-              height: 38px;
-              margin-left: 10px;
-              border-radius: 5px;
-              background: #977e65;
-              border: 0px solid #977e65;
-              color: #fff;
-              cursor: pointer;
-              outline: none;
-            "
-          />
+          <label style="margin-right: 14px">Duration (HH:mm:ss,SSS)</label>
+          <div class="shift_duration_container">
+            <input
+              id="shift_duration_hours"
+              class="shift_duration"
+              type="number"
+              value="00"
+              min="-99"
+              max="99"
+              title="2 digit hours"
+              onkeypress="return isNumber(event)"
+              onkeyup="validateNumber(event)"
+            />
+            <input
+              id="shift_duration_minutes"
+              class="shift_duration"
+              type="number"
+              value="00"
+              min="-99"
+              max="99"
+              title="2 digit minutes"
+              onkeypress="return isNumber(event)"
+              onkeyup="validateNumber(event)"
+            />
+            <input
+              id="shift_duration_seconds"
+              class="shift_duration"
+              type="number"
+              value="00"
+              min="-99"
+              max="99"
+              title="2 digit seconds"
+              onkeypress="return isNumber(event)"
+              onkeyup="validateNumber(event)"
+            />
+            <input
+              id="shift_duration_milliseconds"
+              class="shift_duration"
+              type="number"
+              value="000"
+              min="-999"
+              max="999"
+              title="3 digit milliseconds"
+              onkeypress="return isNumber(event)"
+              onkeyup="validateNumber(event)"
+            />
+          </div>
+          <input type="submit" value="Resync" class="resync" />
         </form>
       </div>
     </div>
 
-    <div class="bottom row content">
-      <div class="column">
+    <div class="bottom content">
+      <div class="row">
         <textarea id="raw_content"></textarea>
       </div>
 
-      <div class="column">
+      <div class="row">
         <textarea
           id="processed_content"
           onkeydown="event.keyCode == 8 || event.keyCode == 46 ? event.preventDefault() : null"
