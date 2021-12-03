@@ -1,19 +1,50 @@
+@import url("https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&display=swap");
+
 body {
   height: 100%;
   display: flex;
   flex-direction: column;
-  background: #fffcf3;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  background: #725940;
+  background: url("/images/bg1.jpg") repeat fixed top center;
+  font-family: "M PLUS Rounded 1c", sans-serif;
 }
 
 #title {
+  min-height: 75px;
+}
+
+#title > img {
+  width: 75px;
+  height: 75px;
+}
+
+#title > p {
+  color: #fffbee;
   margin-left: 10px;
+  font-size: 2em;
+  font-weight: bolder;
+}
+
+.top.column {
+  /* background: #fdf7e4; */
+  /* padding: 10px; */
+  /* border: 1px solid #ddd; */
+  border-radius: 10px;
+  /* box-shadow: 1px -1px 4px rgb(0 0 0 / 15%); */
+}
+
+.top.column > .row {
+  background: #fdf7e4;
+  border: 0px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 1px -1px 4px rgb(0 0 0 / 15%);
+  padding: 10px;
+  margin-bottom: 5px;
 }
 
 .top,
 .bottom {
-  margin: 10px;
+  margin: 5px 10px;
 }
 
 textarea {
@@ -21,13 +52,16 @@ textarea {
   width: 100%;
   height: 100%;
   resize: none;
-  border: 1px solid #ddd;
+  border: 1px solid #777;
+  border-radius: 10px;
+  outline-color: #977e65;
 }
 
 .row {
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
 }
 
 .row > form {
@@ -46,7 +80,7 @@ textarea {
 
 .bottom > .row {
   flex: 1;
-  min-height: 375px;
+  min-height: 300px;
 }
 
 .column:first-child {
@@ -64,39 +98,60 @@ textarea {
 
 .bottom.content {
   display: flex;
+  background: #fdf7e4;
   flex-direction: row;
   flex: 1;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 1px -1px 4px rgb(0 0 0 / 15%);
+  padding: 10px;
 }
 
 .bottom > .row:nth-child(1) {
-  margin-right: 10px;
+  margin-right: 5px;
 }
 
 .bottom > .row:nth-child(2) {
-  margin-left: 10px;
+  margin-left: 5px;
 }
 
 .shift_duration {
   max-width: 60px;
   height: 35px;
+  border: 1px solid #777;
+  border-radius: 10px;
+  outline-color: #977e65;
 }
 
 .shift_duration:last-child {
   max-width: 80px;
 }
 
-.resync {
-  height: 38px;
-  margin-left: 14px;
-  border-radius: 5px;
+.button-regular {
+  border: 1px solid #777;
+  border-radius: 10px;
   background: #977e65;
-  border: 0px solid #977e65;
   color: #fff;
   cursor: pointer;
   outline: none;
 }
 
-@media screen and (max-width: 584px) {
+.resync {
+  min-width: 120px;
+  height: 38px;
+  margin-left: 14px;
+}
+
+@media screen and (max-width: 664px) {
+  #title > img {
+    width: 60px;
+    height: 60px;
+  }
+
+  #title > p {
+    font-size: 1.6em;
+  }
+
   .bottom.content {
     display: flex;
     flex-direction: column;
@@ -142,3 +197,25 @@ textarea {
     margin-left: 0px;
   }
 }
+
+@media screen and (max-width: 484px) {
+  #title > img {
+    width: 45px;
+    height: 45px;
+  }
+
+  #title > p {
+    font-size: 1.2em;
+  }
+}
+
+/* @media screen and (max-width: 364px) {
+  #title > img {
+    width: 30px;
+    height: 30px;
+  }
+
+  #title > p {
+    font-size: 1.0em;
+  }
+} */

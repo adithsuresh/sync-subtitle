@@ -32,17 +32,13 @@ function getContent(elmentId) {
 }
 
 function handleFiles(files) {
-  debugger;
   for (var i = 0; i < files.length; i++) {
-    debugger;
     var file = files[i];
     var reader = new FileReader();
     reader.onload = function (e) {
-      debugger;
       setContent(_rawContentId, e.target.result);
-      document.querySelector("#fileName").innerHTML = document.getElementById(
-        "fileElem"
-      ).files[0].name;
+      document.querySelector("#fileName").innerHTML =
+        document.getElementById("fileElem").files[0].name;
     };
     reader.readAsText(file);
   }
@@ -56,7 +52,6 @@ function process() {
     }, 250);
     return;
   }
-  debugger;
   var content = getContent(_rawContentId);
   var shiftDuration = moment.duration({
     milliseconds: Number(getContent(_shiftDurationMilliseconds)),
@@ -78,11 +73,9 @@ function process() {
   var startTime, endTime;
   setContent(_processedContentId, "");
   var result = content.replace(timeCodesLine_Rgx, function (timeCodeLineMatch) {
-    debugger;
     var result = timeCodeLineMatch.replace(
       timeCode_Rgx,
       function (timeCodeMatch) {
-        debugger;
         return moment(timeCodeMatch, timeCode_Fromat)
           .add(shiftDuration)
           .format(timeCode_Fromat);

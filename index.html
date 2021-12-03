@@ -9,15 +9,10 @@
 
   <body>
     <div id="title" class="row">
-      <img src="logo.png" width="75px" height="75px" />
-      <h1 style="color: #977e65; margin-left: 5px">
-        Online SRT Subtitle Resync Tool
-      </h1>
+      <img src="logo.png" />
+      <p>Online SRT Subtitle Resync Tool</p>
     </div>
-    <div
-      class="top column"
-      style="background: #fdf7e4; padding: 10px; border: 1px solid #ddd"
-    >
+    <div class="top column">
       <div class="row">
         <input
           type="file"
@@ -27,25 +22,21 @@
           onchange="handleFiles(this.files)"
         />
         <label
+          class="button-regular"
           for="fileElem"
           style="
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 1px solid #aaa;
             padding: 10px;
-            border-radius: 10px;
-            background: #fff4cf;
-            color: #444;
-            cursor: pointer;
           "
           >Select an (.SRT) file to import ...</label
         >
         <p id="fileName" style="margin-left: 10px">No file selected.</p>
       </div>
 
-      <div class="row" style="margin-top: 15px">
-        <form action="" onsubmit="process(); return false;">
+      <div class="row" style="margin-top: 10px">
+        <form class="row" action="" onsubmit="process(); return false;">
           <label style="margin-right: 14px">Duration (HH:mm:ss,SSS)</label>
           <div class="shift_duration_container">
             <input
@@ -93,14 +84,19 @@
               onkeyup="validateNumber(event)"
             />
           </div>
-          <input type="submit" value="Resync" class="resync" />
+          <input type="submit" value="Resync" class="resync button-regular" />
         </form>
       </div>
     </div>
 
     <div class="bottom content">
       <div class="row">
-        <textarea id="raw_content"></textarea>
+        <textarea
+          id="raw_content"
+          oninput="if (!this.value.trim()) {
+                      document.getElementById('processed_content').value = '';
+                    }"
+        ></textarea>
       </div>
 
       <div class="row">
