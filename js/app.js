@@ -15,11 +15,34 @@ function isNumber(e) {
 }
 
 function validateNumber(e) {
-  if (parseInt(e.srcElement.value.trim(), 10) > e.srcElement.max) {
-    e.srcElement.value = e.srcElement.max;
+  if (e.srcElement.value) {
+    if (
+      parseInt(e.srcElement.value.trim(), 10) > parseInt(e.srcElement.max, 10)
+    ) {
+      e.srcElement.value = e.srcElement.max;
+    }
+    if (
+      parseInt(e.srcElement.value.trim(), 10) < parseInt(e.srcElement.min, 10)
+    ) {
+      e.srcElement.value = e.srcElement.min;
+    }
   }
-  if (parseInt(e.srcElement.value.trim(), 10) < e.srcElement.min) {
-    e.srcElement.value = e.srcElement.min;
+}
+
+function zeroFilled(e) {
+  let value = e.srcElement.value;
+  let valueWidth = e.srcElement.max.length;
+  if (value) {
+    if (parseInt(value, 10) > 0) {
+      e.srcElement.value = (new Array(valueWidth).join("0") + value).substr(
+        -valueWidth
+      );
+    } else {
+      let operator = value.charAt(0);
+      value = value.split(operator)[1];
+      value = (new Array(valueWidth).join("0") + value).substr(-valueWidth);
+      e.srcElement.value = operator + value;
+    }
   }
 }
 
@@ -45,6 +68,22 @@ function handleFiles(files) {
 }
 
 function process() {
+  let timeArray = [
+    _shiftDurationHours,
+    _shiftDurationMinutes,
+    _shiftDurationSeconds,
+    _shiftDurationMilliseconds,
+  ];
+  for (let i = 0; i < timeArray.length; i++) {
+    let timeInput = timeArray[i];
+    let timeInputElement = document.querySelector(`#${timeInput}`);
+    if (!timeInputElement.value) {
+      let valueWidth = timeInputElement.max.length;
+      timeInputElement.value = new Array(valueWidth + 1)
+        .join("0")
+        .substr(-valueWidth);
+    }
+  }
   if (!document.getElementById("raw_content").value.trim()) {
     setContent(_processedContentId, "");
     setTimeout(() => {
