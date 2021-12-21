@@ -16,14 +16,10 @@ function isNumber(e) {
 
 function validateNumber(e) {
   if (e.srcElement.value) {
-    if (
-      parseInt(e.srcElement.value.trim(), 10) > parseInt(e.srcElement.max, 10)
-    ) {
+    if (parseInt(e.srcElement.value.trim(), 10) > parseInt(e.srcElement.max, 10)) {
       e.srcElement.value = e.srcElement.max;
     }
-    if (
-      parseInt(e.srcElement.value.trim(), 10) < parseInt(e.srcElement.min, 10)
-    ) {
+    if (parseInt(e.srcElement.value.trim(), 10) < parseInt(e.srcElement.min, 10)) {
       e.srcElement.value = e.srcElement.min;
     }
   }
@@ -34,9 +30,7 @@ function zeroFilled(e) {
   let valueWidth = e.srcElement.max.length;
   if (value) {
     if (parseInt(value, 10) > 0) {
-      e.srcElement.value = (new Array(valueWidth).join("0") + value).substr(
-        -valueWidth
-      );
+      e.srcElement.value = (new Array(valueWidth).join("0") + value).substr(-valueWidth);
     } else {
       let operator = value.charAt(0);
       value = value.split(operator)[1];
@@ -60,28 +54,22 @@ function handleFiles(files) {
     var reader = new FileReader();
     reader.onload = function (e) {
       setContent(_rawContentId, e.target.result);
-      document.querySelector("#fileName").innerHTML =
-        document.getElementById("fileElem").files[0].name;
+      document.querySelector("#fileName").innerHTML = document.getElementById("fileElem").files[0].name;
     };
     reader.readAsText(file);
   }
 }
 
 function process() {
-  let timeArray = [
-    _shiftDurationHours,
-    _shiftDurationMinutes,
-    _shiftDurationSeconds,
-    _shiftDurationMilliseconds,
-  ];
+  let timeArray = [_shiftDurationHours, _shiftDurationMinutes, _shiftDurationSeconds, _shiftDurationMilliseconds];
   for (let i = 0; i < timeArray.length; i++) {
     let timeInput = timeArray[i];
     let timeInputElement = document.querySelector(`#${timeInput}`);
+    let e = { srcElement: timeInputElement };
+    zeroFilled(e);
     if (!timeInputElement.value) {
       let valueWidth = timeInputElement.max.length;
-      timeInputElement.value = new Array(valueWidth + 1)
-        .join("0")
-        .substr(-valueWidth);
+      timeInputElement.value = new Array(valueWidth + 1).join("0").substr(-valueWidth);
     }
   }
   if (!document.getElementById("raw_content").value.trim()) {
@@ -104,22 +92,16 @@ function process() {
   });
   var timeCode_Fromat = "HH:mm:ss,SSS";
   var timeCode_RgxPattern = "(\\d{2}:\\d{2}:\\d{2},\\d{3})";
-  var timeCodesLine_RgxPattern =
-    timeCode_RgxPattern + ".*-->.*" + timeCode_RgxPattern + "(?:\\r?\\n)";
+  var timeCodesLine_RgxPattern = timeCode_RgxPattern + ".*-->.*" + timeCode_RgxPattern + "(?:\\r?\\n)";
   var t = moment(0, "HH");
   var timeCode_Rgx = new RegExp(timeCode_RgxPattern, "g");
   var timeCodesLine_Rgx = new RegExp(timeCodesLine_RgxPattern, "g");
   var startTime, endTime;
   setContent(_processedContentId, "");
   var result = content.replace(timeCodesLine_Rgx, function (timeCodeLineMatch) {
-    var result = timeCodeLineMatch.replace(
-      timeCode_Rgx,
-      function (timeCodeMatch) {
-        return moment(timeCodeMatch, timeCode_Fromat)
-          .add(shiftDuration)
-          .format(timeCode_Fromat);
-      }
-    );
+    var result = timeCodeLineMatch.replace(timeCode_Rgx, function (timeCodeMatch) {
+      return moment(timeCodeMatch, timeCode_Fromat).add(shiftDuration).format(timeCode_Fromat);
+    });
     return result;
   });
   setContent(_processedContentId, result);
@@ -133,8 +115,7 @@ function saveTextAsFile() {
   var textFileAsBlob = new Blob([textToWrite], { type: "text/plain" });
   var fileNameToSaveAs =
     document.getElementById("fileElem").files.length > 0
-      ? document.getElementById("fileElem").files[0].name.replace(".srt", "") +
-        "-resync.srt"
+      ? document.getElementById("fileElem").files[0].name.replace(".srt", "") + "-resync.srt"
       : Date.now() + "-resync.srt";
   var downloadLink = document.createElement("a");
   downloadLink.download = fileNameToSaveAs;
@@ -148,4 +129,19 @@ function saveTextAsFile() {
     document.body.appendChild(downloadLink);
   }
   downloadLink.click();
+}
+
+function raw_contentOnInput(el) {
+  if (!el.value.trim()) {
+    document.getElementById("processed_content").value = "";
+  }
+}
+
+function procsessed_contentOnKeyPress(event) {
+  event.preventDefault();
+  let charCode = event.which || event.keyCode || event.charCode;
+  if (charCode == 8 || charCode == 46) {
+    return true;
+  }
+  return false;
 }
