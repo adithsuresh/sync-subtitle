@@ -6,7 +6,7 @@
   font-style: normal;
 }
 
-:root {
+.light-theme {
   --white: #ffffff;
   --primary: #038970;
   --primary_dark: #005849;
@@ -173,12 +173,27 @@ textarea {
   cursor: pointer;
   outline: 0 !important;
   display: inline-block;
+  transition: all 0.2s ease-out;
 }
-.button_r:focus,
-.button_r:hover {
+/* .button_r:focus {
   background: #202020;
   text-decoration: none;
   color: #fff;
+  border: none;
+} */
+.button_r:hover {
+  transform: translateY(-2px) scale(1.005);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.11), 0 6px 9px rgba(220, 233, 255, 0.48);
+}
+.button_r:active {
+  transform: translateY(2px) scale(0.995);
+  box-shadow: none;
+}
+
+.button_outline {
+  background: transparent;
+  border: 1px solid var(--primary);
+  color: var(--primary);
 }
 
 #resyncBtn {

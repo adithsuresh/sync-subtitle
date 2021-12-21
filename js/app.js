@@ -77,6 +77,7 @@ function process() {
     setTimeout(() => {
       alert("No subtitle source found !");
     }, 250);
+    document.activeElement.blur();
     return;
   }
   var content = getContent(_rawContentId);
@@ -108,6 +109,7 @@ function process() {
   if (document.getElementById("processed_content").value.trim()) {
     saveTextAsFile();
   }
+  document.activeElement.blur();
 }
 
 function saveTextAsFile() {
